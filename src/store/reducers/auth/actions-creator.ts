@@ -23,10 +23,10 @@ export const AuthActionCreators = {
                     dispatch(AuthActionCreators.setIsAuth(true))
                     dispatch(AuthActionCreators.setUser(mockUsers))
                 } else {
-                    dispatch(AuthActionCreators.setError('Вы ввели не правильный логин или пароль!'))
+                    dispatch(AuthActionCreators.setError('Вы ввели не правильный логин или пароль! Пробуй!'))
                 }
                 dispatch(AuthActionCreators.setIsLoading(false))
-            })
+            }, 2000)
 
         } catch (error) {
             dispatch(AuthActionCreators.setError('Произошла ошибка при логине'))
