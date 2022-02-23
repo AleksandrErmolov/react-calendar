@@ -18,7 +18,7 @@ export const publicRoutes:IRoute[] = [
 ]
 
 
-export const privteRoutes:IRoute[] = [
+export const privateRoutes:IRoute[] = [
 
     {path: RouteNames.EVENT, exact:true, component:Event}
 
