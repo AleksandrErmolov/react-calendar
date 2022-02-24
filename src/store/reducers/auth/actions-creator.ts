@@ -31,5 +31,12 @@ export const AuthActionCreators = {
         } catch (error) {
             dispatch(AuthActionCreators.setError('Произошла ошибка при логине'))
         }
+        
+    },
+    logout: () => async(dispatch: AppDispatch) => {
+            localStorage.removeItem('auth')
+            localStorage.removeItem('username')
+            dispatch(AuthActionCreators.setUser({} as IUser))
+            dispatch(AuthActionCreators.setIsAuth(false))
     }
 }
