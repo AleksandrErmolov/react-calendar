@@ -5,12 +5,13 @@ import { RouteNames } from '../routes';
 import { useTypeSelector } from '../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
 import { AuthActionCreators } from '../store/reducers/auth/actions-creator';
+import { useAction } from '../hooks/useAction';
 
 export const NavBar: FC = () => {
 
     const navigate = useNavigate()
     const { isAuth, user } = useTypeSelector(state => state.auth)
-    const dispatch = useDispatch()
+    const { logout } = useAction()
 
 
     return (
@@ -23,7 +24,7 @@ export const NavBar: FC = () => {
                         <div style={{ color: 'white' }}>{user.username}</div>
                         <Menu theme="dark" mode="horizontal" selectable={false}>
                             <Menu.Item
-                                onClick={() => dispatch(AuthActionCreators.logout())}
+                                onClick={logout}
                                 key="1"
                             >
                                 LogOut
