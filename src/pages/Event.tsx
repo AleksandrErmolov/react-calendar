@@ -1,10 +1,43 @@
-import React, { FC } from 'react'
+import { Button, Layout, Modal, Row } from 'antd'
+import React, { FC, useState } from 'react'
+import { EventCalendar } from '../components/EventCalendar'
+import { EventForm } from '../components/EventForm'
+import Login from './Login'
 
-const Event:FC = ( ) => {
+const Event: FC = () => {
+
+    const [modalVisible, setModalVisible] = useState(false)
+
     return (
-        <div> 
-            event
-        </div>
+        <Layout>
+            <EventCalendar events={[]} />
+            <Row justify='center'>
+                <Button
+                    onClick={() => setModalVisible(true)}
+                >
+                    Добавить событие
+
+                </Button>
+            </Row>
+
+            <Modal
+                title="Добавить событие"
+                visible={modalVisible}
+                footer={null}
+                onCancel={() => setModalVisible(false)}
+            >
+                <EventForm />
+
+                <Row justify='end'>
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                >
+                    Создать
+                </Button>
+            </Row>
+        </Modal>
+        </Layout >
     )
 }
 

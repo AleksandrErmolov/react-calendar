@@ -1,0 +1,17 @@
+import axios from 'axios';
+import { AppDispatch } from '../..';
+import { IEvent } from '../../../models/IEvents';
+import { IUser } from '../../../models/IUsers';
+import { EventActionEnum, SetEventsAction, SetGuestsAction } from './types';
+
+export cosnt EventActionCreators = {
+    setGuests: (payload: IUser[]):SetGuestsAction => ({type: EventActionEnum.SET_GUESTS, payload}),
+    setEvents: (payload: IEvent[]):SetEventsAction => ({type: EventActionEnum.SET_EVENTS, payload}),
+    fetchGuests: () => async (dispatch:AppDispatch) =>  {
+        try {
+            const guests = await axios.get('/users.json')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
