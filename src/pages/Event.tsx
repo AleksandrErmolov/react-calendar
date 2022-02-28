@@ -2,15 +2,18 @@ import { Button, Layout, Modal, Row } from 'antd'
 import React, { FC, useEffect, useState } from 'react'
 import { EventCalendar } from '../components/EventCalendar'
 import { EventForm } from '../components/EventForm'
-import Login from './Login'
+import { useAction } from '../hooks/useAction'
+import { useTypeSelector } from '../hooks/useTypedSelector'
 
 const Event: FC = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
-    const {fetchGuests} = useActions()
+    const { fetchGuests } = useAction()
+    const {guests} = useTypeSelector(state => state.event)
+    
 
     useEffect(() => {
-fetchGuests()
+        fetchGuests()
     }, [])
 
     return (
@@ -31,7 +34,7 @@ fetchGuests()
                 footer={null}
                 onCancel={() => setModalVisible(false)}
             >
-                <EventForm />
+                <EventForm guests={guests} />
 
                 <Row justify='end'>
                     <Button
@@ -47,7 +50,3 @@ fetchGuests()
 }
 
 export default Event
-
-function useActions(): { fetchGuests: any } {
-    throw new Error('Function not implemented.')
-}

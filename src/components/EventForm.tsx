@@ -1,10 +1,16 @@
 import { DatePicker, Form, Input, Select } from 'antd'
-import React from 'react'
+import React, { FC } from 'react'
+import { IUser } from '../models/IUsers'
 import { rules } from '../utils/rules'
 
-export const EventForm = () => {
+interface EventFormProps {
+    guests: IUser[]
+}
 
-    
+export const EventForm: FC<EventFormProps> = (props) => {
+
+    console.log(props.guests)
+
     return (
         <Form>
             <Form.Item
@@ -17,23 +23,27 @@ export const EventForm = () => {
 
 
             <Form.Item
-            label="Дата события"
-            name="date"
-            rules={[rules.required()]}
+                label="Дата события"
+                name="date"
+                rules={[rules.required()]}
             >
                 <DatePicker />
             </Form.Item>
 
-            <Form.Item>
-         <Select>
-         <Select.Option value="jack">Jack</Select.Option>
-         <Select.Option value="lucy">Lucy</Select.Option>
-         <Select.Option value="disabled" disabled>
-           Disabled
-         </Select.Option>
-         <Select.Option value="Yiminghe">yiminghe</Select.Option>
-       </Select>
-      </Form.Item>
+            <Form.Item
+                label="Описание события"
+                name="description"
+                rules={[rules.required()]}
+            >
+                <Select>
+                    {props.guests.map(guest => {
+                        return ( <Select.Option key={guest.username} value={guest.username}>
+                                {guest.username}
+                            </Select.Option> )
+                        })
+                    }
+                </Select>
+            </Form.Item>
 
 
         </Form>
