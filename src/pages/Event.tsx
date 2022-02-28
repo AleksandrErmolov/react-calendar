@@ -1,5 +1,5 @@
 import { Button, Layout, Modal, Row } from 'antd'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { EventCalendar } from '../components/EventCalendar'
 import { EventForm } from '../components/EventForm'
 import Login from './Login'
@@ -7,6 +7,11 @@ import Login from './Login'
 const Event: FC = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
+    const {fetchGuests} = useActions()
+
+    useEffect(() => {
+fetchGuests()
+    }, [])
 
     return (
         <Layout>
@@ -32,13 +37,17 @@ const Event: FC = () => {
                     <Button
                         type='primary'
                         htmlType='submit'
-                >
-                    Создать
-                </Button>
-            </Row>
-        </Modal>
+                    >
+                        Создать
+                    </Button>
+                </Row>
+            </Modal>
         </Layout >
     )
 }
 
 export default Event
+
+function useActions(): { fetchGuests: any } {
+    throw new Error('Function not implemented.')
+}
