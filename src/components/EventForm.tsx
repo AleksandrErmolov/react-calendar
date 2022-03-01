@@ -1,7 +1,7 @@
-import { DatePicker, Form, Input, Select } from 'antd'
-import React, { FC } from 'react'
-import { IUser } from '../models/IUsers'
-import { rules } from '../utils/rules'
+import {DatePicker, Form, Input, Select} from 'antd'
+import React, {FC} from 'react'
+import {IUser} from '../models/IUsers'
+import {rules} from '../utils/rules'
 
 interface EventFormProps {
     guests: IUser[]
@@ -18,7 +18,7 @@ export const EventForm: FC<EventFormProps> = (props) => {
                 name="description"
                 rules={[rules.required()]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
 
 
@@ -27,7 +27,7 @@ export const EventForm: FC<EventFormProps> = (props) => {
                 name="date"
                 rules={[rules.required()]}
             >
-                <DatePicker />
+                <DatePicker/>
             </Form.Item>
 
             <Form.Item
@@ -37,10 +37,10 @@ export const EventForm: FC<EventFormProps> = (props) => {
             >
                 <Select>
                     {props.guests.map(guest => {
-                        return ( <Select.Option key={guest.username} value={guest.username}>
-                                {guest.username}
-                            </Select.Option> )
-                        })
+                        return (<Select.Option key={guest.username} value={guest.username}>
+                            {guest.username}
+                        </Select.Option>)
+                    })
                     }
                 </Select>
             </Form.Item>

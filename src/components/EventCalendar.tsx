@@ -10,10 +10,7 @@ interface EventCalendarProps {
 export const EventCalendar:FC<EventCalendarProps> = () => {
   return (
     <div>
-
       <Calendar />
-
-
     </div>
   )
 }
