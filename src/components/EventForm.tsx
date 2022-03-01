@@ -1,7 +1,8 @@
 import {DatePicker, Form, Input, Select} from 'antd'
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import {IUser} from '../models/IUsers'
 import {rules} from '../utils/rules'
+import {IEvent} from "../models/IEvents";
 
 interface EventFormProps {
     guests: IUser[]
@@ -9,8 +10,13 @@ interface EventFormProps {
 
 export const EventForm: FC<EventFormProps> = (props) => {
 
-    console.log(props.guests)
+    const [event, setEvent] = useState<IEvent>({
+        author:'',
+        date:'',
+        description:'',
+        guest:''
 
+    } as IEvent)
     return (
         <Form>
             <Form.Item
@@ -31,11 +37,11 @@ export const EventForm: FC<EventFormProps> = (props) => {
             </Form.Item>
 
             <Form.Item
-                label="Описание события"
-                name="description"
+                label="Выберите гостя"
+                name="guest"
                 rules={[rules.required()]}
             >
-                <Select>
+                <Select onChange={(guest:string) => setEvent({...event, guest}) }>
                     {props.guests.map(guest => {
                         return (<Select.Option key={guest.username} value={guest.username}>
                             {guest.username}
@@ -44,8 +50,6 @@ export const EventForm: FC<EventFormProps> = (props) => {
                     }
                 </Select>
             </Form.Item>
-
-
         </Form>
     )
 }
