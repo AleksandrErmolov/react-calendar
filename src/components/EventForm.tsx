@@ -26,13 +26,14 @@ export const EventForm: FC<EventFormProps> = (props) => {
 
     const selectDate = (date: Moment | null) => {
         if (date) {
-            setEvent({...event, date:formatDate(date?.toDate())})
+            setEvent({...event, date:formatDate(date.toDate())})
         }
     }
 
 
     const submitForm = () => {
-        props.submit({...event, author:user.username})
+        // props.submit({...event, author:user.username})
+        console.log(123)
     }
 
     return (

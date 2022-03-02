@@ -36,7 +36,6 @@ const Event: FC = () => {
                 onCancel={() => setModalVisible(false)}
             >
                 <EventForm guests={guests} submit={event => createEvent(event)}/>
-
                 <Row justify='end'>
                     <Button
                         type='primary'
