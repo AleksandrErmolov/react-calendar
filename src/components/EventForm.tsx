@@ -3,28 +3,48 @@ import React, {FC, useState} from 'react'
 import {IUser} from '../models/IUsers'
 import {rules} from '../utils/rules'
 import {IEvent} from "../models/IEvents";
+import {Moment} from "moment";
+import {formatDate} from "../utils/date";
+import {useTypeSelector} from "../hooks/useTypedSelector";
 
 interface EventFormProps {
-    guests: IUser[]
+    guests: IUser[],
+    submit: (event:IEvent) => void
 }
 
 export const EventForm: FC<EventFormProps> = (props) => {
 
     const [event, setEvent] = useState<IEvent>({
-        author:'',
-        date:'',
-        description:'',
-        guest:''
+        author: '',
+        date: '',
+        description: '',
+        guest: ''
 
     } as IEvent)
+
+    const {user} = useTypeSelector(state => state.auth)
+
+    const selectDate = (date: Moment | null) => {
+        if (date) {
+            setEvent({...event, date:formatDate(date?.toDate())})
+        }
+    }
+
+
+    const submitForm = () => {
+        props.submit({...event, author:user.username})
+    }
+
     return (
-        <Form>
+        <Form onFinish={submitForm}>
             <Form.Item
                 label="Описание события"
                 name="description"
                 rules={[rules.required()]}
             >
-                <Input/>
+                <Input
+                    onChange={e => setEvent({...event, description: e.target.value})}
+                    value={event.description}/>
             </Form.Item>
 
 
@@ -33,7 +53,7 @@ export const EventForm: FC<EventFormProps> = (props) => {
                 name="date"
                 rules={[rules.required()]}
             >
-                <DatePicker/>
+                <DatePicker onChange={(date => selectDate(date))}/>
             </Form.Item>
 
             <Form.Item
@@ -41,7 +61,7 @@ export const EventForm: FC<EventFormProps> = (props) => {
                 name="guest"
                 rules={[rules.required()]}
             >
-                <Select onChange={(guest:string) => setEvent({...event, guest}) }>
+                <Select onChange={(guest: string) => setEvent({...event, guest})}>
                     {props.guests.map(guest => {
                         return (<Select.Option key={guest.username} value={guest.username}>
                             {guest.username}

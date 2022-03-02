@@ -8,8 +8,8 @@ import { useTypeSelector } from '../hooks/useTypedSelector'
 const Event: FC = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
-    const { fetchGuests } = useAction()
-    const {guests} = useTypeSelector(state => state.event)
+    const { fetchGuests, createEvent } = useAction()
+    const {guests, events} = useTypeSelector(state => state.event)
     
 
     useEffect(() => {
@@ -18,6 +18,7 @@ const Event: FC = () => {
 
     return (
         <Layout>
+            {JSON.stringify(events)}
             <EventCalendar events={[]} />
             <Row justify='center'>
                 <Button
@@ -34,7 +35,7 @@ const Event: FC = () => {
                 footer={null}
                 onCancel={() => setModalVisible(false)}
             >
-                <EventForm guests={guests} />
+                <EventForm guests={guests} submit={event => createEvent(event)}/>
 
                 <Row justify='end'>
                     <Button
