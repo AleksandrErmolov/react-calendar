@@ -32,7 +32,7 @@ const Event: FC = () => {
                 <Button
                     onClick={() => setModalVisible(true)}
                 >
-                    Добавить событие
+                    Добавить событие!
 
                 </Button>
             </Row>
