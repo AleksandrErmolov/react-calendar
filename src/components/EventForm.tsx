@@ -1,4 +1,4 @@
-import {DatePicker, Form, Input, Select} from 'antd'
+import {Button, DatePicker, Form, Input, Row, Select} from 'antd'
 import React, {FC, useState} from 'react'
 import {IUser} from '../models/IUsers'
 import {rules} from '../utils/rules'
@@ -9,7 +9,7 @@ import {useTypeSelector} from "../hooks/useTypedSelector";
 
 interface EventFormProps {
     guests: IUser[],
-    submit: (event:IEvent) => void
+    submit: (event: IEvent) => void
 }
 
 export const EventForm: FC<EventFormProps> = (props) => {
@@ -24,16 +24,16 @@ export const EventForm: FC<EventFormProps> = (props) => {
 
     const {user} = useTypeSelector(state => state.auth)
 
+
     const selectDate = (date: Moment | null) => {
         if (date) {
-            setEvent({...event, date:formatDate(date.toDate())})
+            setEvent({...event, date: formatDate(date.toDate())})
         }
     }
 
 
     const submitForm = () => {
-        // props.submit({...event, author:user.username})
-        console.log(123)
+        props.submit({...event, author:user.username})
     }
 
     return (
@@ -71,6 +71,17 @@ export const EventForm: FC<EventFormProps> = (props) => {
                     }
                 </Select>
             </Form.Item>
+
+            <Row justify="end">
+                <Form.Item>
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                    >
+                        Создать
+                    </Button>
+                </Form.Item>
+            </Row>
         </Form>
     )
 }

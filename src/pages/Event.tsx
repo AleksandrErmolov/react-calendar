@@ -16,6 +16,7 @@ const Event: FC = () => {
         fetchGuests()
     }, [])
 
+
     return (
         <Layout>
             {JSON.stringify(events)}
@@ -37,12 +38,6 @@ const Event: FC = () => {
             >
                 <EventForm guests={guests} submit={event => createEvent(event)}/>
                 <Row justify='end'>
-                    <Button
-                        type='primary'
-                        htmlType='submit'
-                    >
-                        Создать
-                    </Button>
                 </Row>
             </Modal>
         </Layout >
