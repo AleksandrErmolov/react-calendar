@@ -4,22 +4,29 @@ import { EventCalendar } from '../components/EventCalendar'
 import { EventForm } from '../components/EventForm'
 import { useAction } from '../hooks/useAction'
 import { useTypeSelector } from '../hooks/useTypedSelector'
+import {IEvent} from "../models/IEvents";
 
 const Event: FC = () => {
 
     const [modalVisible, setModalVisible] = useState(false)
-    const { fetchGuests, createEvent } = useAction()
+    const { fetchGuests, createEvent, fetchEvents } = useAction()
     const {guests, events} = useTypeSelector(state => state.event)
-    
+    const {user} = useTypeSelector(state => state.auth)
+
 
     useEffect(() => {
         fetchGuests()
+        fetchEvents(user.username)
     }, [])
 
 
+    const addNewEvent = (event:IEvent) => {
+        createEvent(event)
+        setModalVisible(false)
+    }
+
     return (
         <Layout>
-            {JSON.stringify(events)}
             <EventCalendar events={[]} />
             <Row justify='center'>
                 <Button
@@ -36,7 +43,7 @@ const Event: FC = () => {
                 footer={null}
                 onCancel={() => setModalVisible(false)}
             >
-                <EventForm guests={guests} submit={event => createEvent(event)}/>
+                <EventForm guests={guests} submit={addNewEvent}/>
                 <Row justify='end'>
                 </Row>
             </Modal>
